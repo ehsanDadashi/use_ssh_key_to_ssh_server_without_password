@@ -1,0 +1,43 @@
+Local Server                                Remote Server
+     (A)                                          (B)
++-------------------+                      +---------------------+
+|                   |                      |                     |
+| 1. Generate Key   |                      |                     |
+|   Pair            |                      |                     |
+| $ ssh-keygen      |                      |                     |
+|                   |                      |                     |
+|   +------------+  |                      |                     |
+|   |  id_rsa    |  |                      |                     |
+|   | (private)  |  |                      |                     |
+|   +------------+  |                      |                     |
+|                   |                      |                     |
+|   +------------+  |                      |                     |
+|   | id_rsa.pub |  |                      |                     |
+|   | (public)   |  |                      |                     |
+|   +------------+  |                      |                     |
+|                   |                      |                     |
++---------|---------+                      +---------------------+
+          |                                                |
+          |                                                |
+          | 2. Copy Public Key to Remote Server            |
+          | $ ssh-copy-id user@remote-server (B)           |
+          | (or manually append id_rsa.pub to              |
+          | ~/.ssh/authorized_keys on server B)            |
+          |                                                |
+          v                                                |
++-------------------+                      +---------------------+
+|                   |                      |                     |
+| 3. Use SSH to     |                      |                     |
+|    Connect        |                      |                     |
+| $ ssh user@remote |                      |                     |
+|                   |                      |                     |
++-------------------+                      |                     |
+                                           |                     |
+                                           | +-----------------+ |
+                                           | | authorized_keys| |
+                                           | | (contains      | |
+                                           | |  id_rsa.pub)   | |
+                                           | +-----------------+ |
+                                           |                     |
+                                           |                     |
+                                           +---------------------+
